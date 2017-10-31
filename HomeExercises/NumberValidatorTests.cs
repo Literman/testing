@@ -40,9 +40,13 @@ namespace HomeExercises
         [TestCase(1, -1, false, typeof(ArgumentException), TestName = "When scale is negative")]
         [TestCase(1, 2, false, typeof(ArgumentException), TestName = "When scale is bigger than precision")]
         [TestCase(2, 2, false, typeof(ArgumentException), TestName = "When scale equals precision")]
-        public static void Throw(int precision, int scale, bool onlyPositive, Type expectedException, string expectedMessage)
+        public static void Throw(int precision, int scale, bool onlyPositive, Type expectedException)
         {
-            Assert.That(() => new NumberValidator(precision, scale, onlyPositive), Throws.Exception.TypeOf(expectedException));
+            Assert.Throws(expectedException, () => new NumberValidator(precision, scale, onlyPositive));
+
+            //Или так:
+            //Action act = () => new NumberValidator(precision, scale, onlyPositive);
+            //act.ShouldThrow<ArgumentException>();
         }
     }
 
